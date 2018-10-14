@@ -14,9 +14,9 @@ class Item {
         Item(long w, long v);
         void add_weight(long w);
         void add_value(long v);
-        long get_weight();
-        long get_value();
-        std::string state();
+        long get_weight() const;
+        long get_value() const;
+        std::string state() const;
 };
 
 #endif /* !ITEM_H */

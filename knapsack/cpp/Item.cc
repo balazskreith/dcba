@@ -9,7 +9,7 @@ void Item::add_weight(long w) {
     if (w > 0) {
         weight = w;
     } else {
-        cout << "Weight cannot be a negative number!\nSetting weight to 0." << endl;
+        cout << "Weight cannot be zero or a negative number!\nSetting weight to 0." << endl;
         weight = 0;
     }
 }
@@ -23,14 +23,14 @@ void Item::add_value(long v) {
     }
 }
 
-long Item::get_weight() {
+long Item::get_weight() const {
     return weight;
 }
 
-long Item::get_value() {
+long Item::get_value() const {
     return value;
 }
 
-string Item::state() {
+string Item::state() const {
     return "Weight: " + to_string(weight) + "\nValue: " + to_string(value);
 }
