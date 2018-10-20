@@ -14,5 +14,7 @@ func main() {
 		items:        itempool,
 		solutions:    []int{0, 0, 0, 0, 0},
 	}
+
 	fmt.Println(solver.solve())
+
 }
