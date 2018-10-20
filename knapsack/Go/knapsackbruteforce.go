@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type pair struct {
 	first  int
 	second []int
@@ -18,47 +20,46 @@ func (i Item) GetValue() int {
 }
 
 type BruteForceKnapSackSolver struct {
-	weight_limit int
-	items        []Item
-	solutions    []int
+	weightLimit int
+	items       []Item
+	solutions   []int
 }
 
 func (solver BruteForceKnapSackSolver) GetWeightLimit() int {
-	return solver.weight_limit
+	return solver.weightLimit
 }
 
 func (solver BruteForceKnapSackSolver) GetSolutions() []int {
 	return solver.solutions
 }
 
-func (solver BruteForceKnapSackSolver) selectMax(actual_weight int,
-	actual_value int, actual_index int, actual_trace []int) pair {
-	cantFitInKnapSack := solver.GetWeightLimit() <= actual_weight
-	checkedAllItems := len(solver.items) <= actual_index
+func (solver BruteForceKnapSackSolver) selectMax(actualWeight int,
+	actualValue int, actualIndex int, actualTrace []int) pair {
+	cantFitInKnapSack := solver.GetWeightLimit() <= actualWeight
+	checkedAllItems := len(solver.items) <= actualIndex
 
 	if cantFitInKnapSack || checkedAllItems {
-		result := pair{first: actual_value, second: actual_trace}
+		result := pair{first: actualValue, second: actualTrace}
 		return result
 	}
 
-	item := solver.items[actual_index]
-	current_trace := append([]int(nil), actual_trace...)
-	current_weight := actual_weight + item.GetWeight()
-	current_value := actual_value + item.GetValue()
-	not_including := solver.selectMax(actual_weight, actual_value,
-		actual_index+1, current_trace)
-	including := pair{first: 0, second: current_trace}
+	item := solver.items[actualIndex]
+	currentTrace := append([]int(nil), actualTrace...)
+	currentWeight := actualWeight + item.GetWeight()
+	currentValue := actualValue + item.GetValue()
+	notIncluding := solver.selectMax(actualWeight, actualValue,
+		actualIndex+1, currentTrace)
+	including := pair{first: 0, second: currentTrace}
+	fmt.Println(including)
+	if currentWeight <= solver.GetWeightLimit() {
+		currentTrace[actualIndex] = 1
+		including = solver.selectMax(currentWeight, currentValue,
+			actualIndex+1, currentTrace)
 
-	if current_weight <= solver.GetWeightLimit() {
-		current_trace[actual_index] = 1
-		including = solver.selectMax(current_weight, current_value,
-			actual_index+1, current_trace)
-
-		if including.first < not_including.first {
-			return not_including
-		} else {
-			return including
+		if including.first < notIncluding.first {
+			return notIncluding
 		}
+		return including
 	}
 	return including
 }

@@ -10,9 +10,9 @@ func main() {
 	}
 
 	solver := BruteForceKnapSackSolver{
-		weight_limit: 30,
-		items:        itempool,
-		solutions:    []int{0, 0, 0, 0, 0},
+		weightLimit: 30,
+		items:       itempool,
+		solutions:   []int{0, 0, 0, 0, 0},
 	}
 
 	fmt.Println(solver.solve())
